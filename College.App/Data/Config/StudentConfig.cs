@@ -45,6 +45,14 @@ namespace College.App.Data.Config
                 DOB = new DateTime(1997, 11, 10)
 
             });
+            // Configure the relationship between Student and Department
+            builder.HasOne(e => e.Department)
+                .WithMany(d => d.Students)
+                .HasForeignKey(e => e.DepartmentId)
+                .HasConstraintName("FK_Student_Department");
+               // .OnDelete(DeleteBehavior.SetNull); // When a Department is deleted, set DepartmentId to null in Student
+
+
         }
     }
 }

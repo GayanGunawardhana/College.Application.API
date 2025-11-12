@@ -2,6 +2,8 @@
 using College.App.Data;
 using College.App.Data.Repository;
 using College.App.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
@@ -14,14 +16,23 @@ namespace College.App.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[EnableCors(PolicyName= "AllowAll")]
+    [Authorize(Roles ="Superadmin,Admin")]
     public class StudentsController : ControllerBase
     {
        
         private readonly IMapper _Mapper;   
         private readonly IStudentRepository _studentRepository;
+        //Using common repository for generic operations (Step01)
+        //private readonly ICollegeRepository<Student> _studentRepository;
 
         public StudentsController(CollegeDbContext context,IMapper mapper, IStudentRepository studentRepository)
         {
+            //Using common repository for generic operations. Changing parameter type in constructor (Step02)
+            //ICollegeRepository<Student> studentRepository  
+
+
+            //Dependency Injection
             _Mapper = mapper;
             _studentRepository=studentRepository;
         }
@@ -32,6 +43,11 @@ namespace College.App.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status406NotAcceptable)]
+
+        //This is to enable CORS for a specific endpoint
+        //[EnableCors(PolicyName = "AllowOnlyLocalHost")]
+        //This is to disable CORS for a specific endpoint
+        //[DisableCors]
         public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudents()
         {
             
@@ -61,7 +77,10 @@ namespace College.App.Controllers
                 // Bad request status code 400 - client error
                 return BadRequest("Invalid student id");
             }
-            
+
+            //Using common repository for generic operations. Changing parameter id (Step03)
+            //var student = await _studentRepository.GetByIdAsync(n => n.Id == id,false);
+
             var student = await _studentRepository.GetByIdAsync(id,false);
 
             if (student == null)
@@ -90,7 +109,10 @@ namespace College.App.Controllers
             {
                 return BadRequest("Invalid student name");
             }
-           
+
+            //Using common repository for generic operations. Changing parameter id (Step03)
+            //var student = await _studentRepository.GetByIdAsync(n => n.StudentName.Contains(name),false);
+
             var student = await _studentRepository.GetByNameAsync(name);
             if (student == null)
             {
@@ -118,6 +140,9 @@ namespace College.App.Controllers
                 // Bad request status code 400 - client error
                 return BadRequest("Invalid student id");
             }
+
+            //Using common repository for generic operations. Changing parameter id (Step03)
+            //var student = await _studentRepository.GetByIdAsync(n => n.Id == id,false,false);
 
             var student =await _studentRepository.GetByIdAsync(id,false);
             if (student == null)

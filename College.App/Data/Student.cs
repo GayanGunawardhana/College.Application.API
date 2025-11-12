@@ -12,5 +12,13 @@ namespace College.App.Data
         public string Address { get; set; }
 
         public DateTime DOB { get; set; }
+
+        //Foreign Key
+        //Nullable value type
+        public int? DepartmentId { get; set; }
+        //Navigation Property
+        //Nullable reference type
+        public virtual Department? Department { get; set; }
+
     }
 }

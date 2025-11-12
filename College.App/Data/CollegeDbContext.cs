@@ -16,10 +16,12 @@ namespace College.App.Data
             //This code is not generated automatically.
             //Table 01: Students
             modelBuilder.ApplyConfiguration(new StudentConfig());
+            modelBuilder.ApplyConfiguration(new DepartmentConfig());
 
         }
         
        public DbSet<Student> Students { get; set; }
+       public DbSet<Department> Department { get; set; }
 
 
     }
