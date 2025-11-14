@@ -10,6 +10,13 @@ namespace College.App.Configurations
         {
             // Define your object-object mapping configurations here
             CreateMap<Student, StudentDTO>().ReverseMap();
+            // CreateMap <Department, DepartmentDTO>().ReverseMap();
+            // CreateMap<User, UserDTO>().ReverseMap();
+            //  CreateMap<RolePrivilege, RolePrivilegeDTO>().ReverseMap();
+            //  CreateMap<UserRoleMapping, UserRoleMappingDTO>().ReverseMap();
+            //  CreateMap<UserType, UserTypeDTO>().ReverseMap();
+            CreateMap<Role, RoleDTO>().ReverseMap();
+
         }
     }
 }
