@@ -2,6 +2,7 @@
 using College.App.Configurations;
 using College.App.Data;
 using College.App.Data.Repository;
+using College.App.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -60,6 +61,7 @@ builder.Services.AddSwaggerGen(options =>
 //builder.Services.AddOpenApi(); 
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient(typeof(ICollegeRepository<>), typeof(CollegeRepository<>));
 //====================================================================================================
 //In middleware using a named policy or default policy we can enable CORS.

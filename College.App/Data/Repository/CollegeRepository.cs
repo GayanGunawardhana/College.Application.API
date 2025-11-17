@@ -30,7 +30,16 @@ namespace College.App.Data.Repository
         public async Task<List<T>> GetAllStudentsAsync()
         {
             return await _dbSet.AsNoTracking().ToListAsync();
-        }   
+        }
+        public async Task<List<T>> GetAllByFilterAsync(Expression<Func<T, bool>> filter, bool useNoTracking = false)
+        {
+            if (useNoTracking)
+            {
+                return await _dbSet.AsNoTracking().Where(filter).ToListAsync();
+            }
+
+            return await _dbSet.Where(filter).ToListAsync();
+        }
         public async Task<T> GetStudentByIdAsync(Expression<Func<T,bool>> filter, bool useNoTracking = false)
         {
             if (useNoTracking)

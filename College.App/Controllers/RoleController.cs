@@ -65,6 +65,9 @@ namespace College.App.Controllers
         [Route("{id:int}", Name = "GetRolesById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetRoleByIdAsync(int id)
         {
             if (id <= 0)

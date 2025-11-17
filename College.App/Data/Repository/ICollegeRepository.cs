@@ -5,6 +5,7 @@ namespace College.App.Data.Repository
     public interface ICollegeRepository<T> where T : class
     {
         Task<List<T>> GetAllStudentsAsync();
+        Task<List<T>> GetAllByFilterAsync(Expression<Func<T, bool>> filter, bool useNoTracking = false);
         Task<T> GetStudentByIdAsync(Expression<Func<T, bool>> filter, bool useNoTracking = false);
         Task<T> GetStudentByNameAsync(Expression<Func<T, bool>> filter);
         Task<T> CreateStudentAsync(T GenericClass);
